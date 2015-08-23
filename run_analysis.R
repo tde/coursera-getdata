@@ -1,5 +1,13 @@
 library("data.table")
 
+if (!file.exists("UCI HAR Dataset")) {
+  # download the data
+  fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  zipfile="UCI_HAR_data.zip"
+  download.file(fileURL, destfile=zipfile, method="auto")
+  unzip(zipfile)
+}
+
 setwd("./UCI HAR Dataset")
 
 #Load Train data
@@ -78,4 +86,4 @@ tidyData    = aggregate(finalData[,names(finalData) != c('activityId','subjectId
 tidyData    = merge(tidyData,activityType, by='activityId', all.x=TRUE);
 
 # Export the tidyData set 
-write.table(tidyData, '../tidy.txt', row.names=FALSE, sep='\t');
+write.table(tidyData, "../tidy.txt", row.names=FALSE, sep="\t");
